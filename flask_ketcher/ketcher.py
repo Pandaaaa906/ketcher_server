@@ -5,10 +5,9 @@ from indigo import Indigo
 from flask import current_app as app
 from os import path
 
-from ketcher.utils import load_molecule_from_request
+from flask_ketcher.utils import load_molecule_from_request
 
 indigo = Indigo()
-UPLOAD_FOLDER = app.config['UPLOAD_FOLDER']
 bp = Blueprint('ketcher', __name__, url_prefix='/ketcher', static_folder='static', static_url_path='/')
 
 
@@ -117,7 +116,7 @@ def clean(mol=None):
 @bp.route('/imago/uploads', methods=['POST', ])
 def uploads():
     fname = f"{uuid4()}"
-    fp = path.join(app.root_path, UPLOAD_FOLDER, fname)
+    fp = path.join(app.root_path, app.config['UPLOAD_FOLDER'], fname)
     with open(fp, 'wb') as f:
         f.write(request.data)
     d = {
@@ -129,7 +128,7 @@ def uploads():
 # TODO
 @bp.route('/imago/uploads/<file_id>', methods=['GET', ])
 def recognize(file_id):
-    fp = path.join(app.root_path, UPLOAD_FOLDER, file_id)
+    fp = path.join(app.root_path, app.config['UPLOAD_FOLDER'], file_id)
     d = {
         "state": "SUCCESS",
         "metadata": {"mol_str": ""},

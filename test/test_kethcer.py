@@ -1,5 +1,5 @@
-from flask import Flask, redirect, url_for, render_template
-from ketcher import ketcher
+from flask import Flask, render_template
+from flask_ketcher import ketcher
 
 
 UPLOAD_FOLDER = "uploads"
