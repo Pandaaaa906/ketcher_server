@@ -11,7 +11,7 @@ site: https://github.com/epam/ketcher
 In flask script
 ```
 python
-from kethcher_server.ketcher import ketcher
+from flask_ketcher import ketcher
 
 app.register_blueprint(ketcher.bp)
 
