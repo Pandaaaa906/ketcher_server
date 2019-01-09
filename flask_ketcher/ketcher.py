@@ -12,7 +12,7 @@ ketcher = Blueprint('ketcher', __name__, url_prefix='/ketcher', static_folder='s
 
 
 @ketcher.route('/ketcher.html')
-def ketcher_editor():
+def editor():
     return ketcher.send_static_file("ketcher.html")
 
 

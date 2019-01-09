@@ -17,7 +17,7 @@ app.register_blueprint(ketcher)
 ```
 In template
 ```html
-<iframe id="ketcher-frame" src="{{ url_for('ketcher.ketcher_editor') }}" scrolling="no">
+<iframe id="ketcher-frame" src="{{ url_for('ketcher.editor') }}" scrolling="no">
 </iframe>
 ```
 ### TODO
