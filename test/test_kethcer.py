@@ -15,5 +15,5 @@ def demo():
 
 
 if __name__ == '__main__':
-    app.register_blueprint(ketcher.bp)
+    app.register_blueprint(ketcher)
     app.run()

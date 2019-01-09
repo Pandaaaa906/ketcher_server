@@ -12,12 +12,12 @@ In flask script
 ```python
 from flask_ketcher import ketcher
 
-app.register_blueprint(ketcher.bp)
+app.register_blueprint(ketcher)
 
 ```
 In template
 ```html
-<iframe id="ketcher-frame" src="{{ url_for('ketcher.ketcher') }}" scrolling="no">
+<iframe id="ketcher-frame" src="{{ url_for('ketcher.ketcher_editor') }}" scrolling="no">
 </iframe>
 ```
 ### TODO

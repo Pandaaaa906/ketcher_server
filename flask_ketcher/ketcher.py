@@ -8,22 +8,22 @@ from os import path
 from flask_ketcher.utils import load_molecule_from_request
 
 indigo = Indigo()
-bp = Blueprint('ketcher', __name__, url_prefix='/ketcher', static_folder='static', static_url_path='/')
+ketcher = Blueprint('ketcher', __name__, url_prefix='/ketcher', static_folder='static', static_url_path='/')
 
 
-@bp.route('/ketcher.html')
-def ketcher():
-    return bp.send_static_file("ketcher.html")
+@ketcher.route('/ketcher.html')
+def ketcher_editor():
+    return ketcher.send_static_file("ketcher.html")
 
 
 # For debug use
-@bp.route('/demo.html')
+@ketcher.route('/demo.html')
 def demo():
-    return bp.send_static_file("demo.html")
+    return ketcher.send_static_file("demo.html")
 
 
 # TODO
-@bp.route('/info')
+@ketcher.route('/info')
 def info():
     d = {
         "indigo_version": indigo.version(),
@@ -33,7 +33,7 @@ def info():
 
 
 # TODO Not sure what it suppose to be
-@bp.route('/indigo/calculate_cip', methods=['POST', ])
+@ketcher.route('/indigo/calculate_cip', methods=['POST', ])
 @load_molecule_from_request
 def calculate_cip(mol=None):
     mol.markEitherCisTrans()
@@ -42,7 +42,7 @@ def calculate_cip(mol=None):
     return jsonify(d)
 
 
-@bp.route('/indigo/calculate', methods=['POST', ])
+@ketcher.route('/indigo/calculate', methods=['POST', ])
 @load_molecule_from_request
 def calculate(mol=None):
     d = {
@@ -56,7 +56,7 @@ def calculate(mol=None):
 
 
 # TODO Unknown types usage
-@bp.route('/indigo/check', methods=['POST', ])
+@ketcher.route('/indigo/check', methods=['POST', ])
 @load_molecule_from_request
 def check(mol=None):
     # types = request.json.get('types')
@@ -72,7 +72,7 @@ def check(mol=None):
     return jsonify(errs)
 
 
-@bp.route('/indigo/aromatize', methods=['POST', ])
+@ketcher.route('/indigo/aromatize', methods=['POST', ])
 @load_molecule_from_request
 def aromatize(mol=None):
     mol.aromatize()
@@ -82,7 +82,7 @@ def aromatize(mol=None):
     return jsonify(d)
 
 
-@bp.route('/indigo/dearomatize', methods=['POST', ])
+@ketcher.route('/indigo/dearomatize', methods=['POST', ])
 @load_molecule_from_request
 def dearomatize(mol=None):
     mol.dearomatize()
@@ -92,7 +92,7 @@ def dearomatize(mol=None):
     return jsonify(d)
 
 
-@bp.route('/indigo/layout', methods=['POST', ])
+@ketcher.route('/indigo/layout', methods=['POST', ])
 @load_molecule_from_request
 def layout(mol=None):
     mol.layout()
@@ -102,7 +102,7 @@ def layout(mol=None):
     return jsonify(d)
 
 
-@bp.route('/indigo/clean', methods=['POST', ])
+@ketcher.route('/indigo/clean', methods=['POST', ])
 @load_molecule_from_request
 def clean(mol=None):
     mol.clean2d()
@@ -113,7 +113,7 @@ def clean(mol=None):
 
 
 # TODO
-@bp.route('/imago/uploads', methods=['POST', ])
+@ketcher.route('/imago/uploads', methods=['POST', ])
 def uploads():
     fname = f"{uuid4()}"
     fp = path.join(app.root_path, app.config['UPLOAD_FOLDER'], fname)
@@ -126,7 +126,7 @@ def uploads():
 
 
 # TODO
-@bp.route('/imago/uploads/<file_id>', methods=['GET', ])
+@ketcher.route('/imago/uploads/<file_id>', methods=['GET', ])
 def recognize(file_id):
     fp = path.join(app.root_path, app.config['UPLOAD_FOLDER'], file_id)
     d = {
