@@ -8,17 +8,21 @@ site: https://github.com/epam/ketcher
 
 ### How to use
 
-In flask script
+#### In flask script
 ```python
 from flask_ketcher import ketcher
 
 app.register_blueprint(ketcher)
 
 ```
-In template
+#### In template
 ```html
-<iframe id="ketcher-frame" src="{{ url_for('ketcher.editor') }}" scrolling="no">
-</iframe>
+<iframe id="ketcher-frame" src="{{ url_for('ketcher.editor') }}" scrolling="no"></iframe>
+```
+
+#### In javascript
+```javascript
+var ketcher = $('#ketcher-frame')[0].contentWindow.ketcher
 ```
 ### TODO
 Fix the chemical recognize function with Imago.

@@ -5,6 +5,8 @@ from indigo import Indigo
 from flask import current_app as app
 from os import path
 
+from pyimago import imago
+
 from flask_ketcher.utils import load_molecule_from_request
 
 indigo = Indigo()
@@ -27,7 +29,7 @@ def demo():
 def info():
     d = {
         "indigo_version": indigo.version(),
-        "imago_versions": ["2.0.0", ],
+        "imago_versions": [imago.version(), ],
     }
     return jsonify(d)
 
@@ -129,8 +131,9 @@ def uploads():
 @ketcher.route('/imago/uploads/<file_id>', methods=['GET', ])
 def recognize(file_id):
     fp = path.join(app.root_path, app.config['UPLOAD_FOLDER'], file_id)
+    mol = imago.get_mol_text_from_fp(fp)
     d = {
         "state": "SUCCESS",
-        "metadata": {"mol_str": ""},
+        "metadata": {"mol_str": mol},
     }
     return jsonify(d)
