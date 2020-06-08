@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from flask import Blueprint, request, jsonify, send_from_directory
+from flask import Blueprint, request, jsonify
 from indigo import Indigo
 from flask import current_app as app
 from os import path
@@ -13,12 +13,12 @@ except ModuleNotFoundError:
 from flask_ketcher.utils import load_molecule_from_request
 
 indigo = Indigo()
-ketcher = Blueprint('ketcher', __name__, url_prefix='/ketcher', static_folder='/static', static_url_path='/static')
+ketcher = Blueprint('ketcher', __name__, url_prefix='/ketcher', static_folder='static', static_url_path='/')
 
 
 @ketcher.route('/ketcher.html')
 def editor():
-    return send_from_directory(path.join('.', 'static', 'js'), 'ketcher.html')
+    return ketcher.send_static_file("ketcher.html")
 
 
 # For debug use
