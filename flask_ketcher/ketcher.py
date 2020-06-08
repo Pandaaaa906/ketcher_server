@@ -5,12 +5,15 @@ from indigo import Indigo
 from flask import current_app as app
 from os import path
 
-from pyimago import imago
+try:
+    from pyimago import imago
+except ModuleNotFoundError:
+    imago = None
 
 from flask_ketcher.utils import load_molecule_from_request
 
 indigo = Indigo()
-ketcher = Blueprint('ketcher', __name__, url_prefix='/ketcher', static_folder='static', static_url_path='/')
+ketcher = Blueprint('ketcher', __name__, url_prefix='/ketcher', static_folder='/static', static_url_path='/static')
 
 
 @ketcher.route('/ketcher.html')
@@ -29,7 +32,7 @@ def demo():
 def info():
     d = {
         "indigo_version": indigo.version(),
-        "imago_versions": [imago.version(), ],
+        "imago_versions": [imago and imago.version(), ],
     }
     return jsonify(d)
 
