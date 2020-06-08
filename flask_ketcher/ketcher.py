@@ -16,9 +16,9 @@ indigo = Indigo()
 ketcher = Blueprint('ketcher', __name__, url_prefix='/ketcher', static_folder='/static', static_url_path='/static')
 
 
-@ketcher.route('/<path:filename>')
-def serve_static(filename):
-    return send_from_directory(path.join('.', 'static', 'js'), filename)
+@ketcher.route('/ketcher.html')
+def editor():
+    return send_from_directory(path.join('.', 'static', 'js'), 'ketcher.html')
 
 
 # For debug use
